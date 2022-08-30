@@ -1,25 +1,25 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: de-database
+  name: monitoring-db
 spec:
   ttlSecondsAfterFinished: 259200 
   template:
     metadata:
-      name: de-database
+      name: monitoring-db
     spec:
       restartPolicy: Never
       containers:
-      - name: update-de-db
-        image: harbor.cyverse.org/de/de-database
+      - name: update-monitoring-db
+        image: harbor.cyverse.org/de/monitoring-db
         imagePullPolicy: Always
         env:
-          - name: DE_DATABASE_URI
+          - name: MONITORING_DATABASE_URI
             valueFrom:
               secretKeyRef:
                 name: configs
-                key: DE_DATABASE_URI
-        args: ["-database", "$(DE_DATABASE_URI)", "-path", "/migrations", "up"]
+                key: MONITORING_DATABASE_URI
+        args: ["-database", "$(MONITORING_DATABASE_URI)", "-path", "/migrations", "up"]
         volumeMounts:
           - name: localtime
             mountPath: /etc/localtime

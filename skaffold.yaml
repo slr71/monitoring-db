@@ -1,14 +1,14 @@
 apiVersion: skaffold/v1
 kind: Config
 metadata:
-  name: migrations-db
+  name: monitoring-db
 deploy:
   kubectl:
     manifests:
-      - k8s/migrations-db.yml
+      - k8s/monitoring-db.yml
 build:
   tagPolicy:
     gitCommit: {}
   artifacts:
-  - image: harbor.cyverse.org/de/migrations-db
+  - image: harbor.cyverse.org/de/monitoring-db
   local: {}
